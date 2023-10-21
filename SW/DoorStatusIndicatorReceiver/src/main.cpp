@@ -23,17 +23,19 @@
 unsigned long previousMillisCon = 0;
 unsigned long currentMillisCon = 0;
 unsigned long conncectionTimeout = 5000;
-int retries = 0;
-bool connection = false;
+
 String message = "";
 String doorStatusStr = "";
+
+int retries = 0;
+bool connectionSuccessful = false;
 
 SoftwareSerial HC12(tx, rx);
 
 void ConnectionTest()
 {
   HC12.print("ping"); // send "ping" to the sender
-  connection = false;
+  connectionSuccessful = false;
   retries = 0;
   digitalWrite(ledGreen, LOW);
   digitalWrite(ledRed, LOW);
@@ -58,7 +60,7 @@ void ConnectionTest()
         if (message.substring(0, 4) == "pong")
         {
           // "pong" was sent back
-          connection = true;
+          connectionSuccessful = true;
           currentMillisCon = previousMillisCon - 5000; // end while loop
         }
       }
@@ -66,7 +68,7 @@ void ConnectionTest()
 
     delay(timeLong);
 
-    if (connection == true)
+    if (connectionSuccessful == true)
     {
       retries = 1000;
       for (int i = 0; i < 3; i++)
@@ -76,12 +78,12 @@ void ConnectionTest()
         digitalWrite(ledYellow, LOW);
         delay(timeLong);
       }
-      if (doorStatusStr == "au")
+      if (doorStatusStr == "OP") // OP = open
       {
         digitalWrite(ledRed, HIGH);
         digitalWrite(ledGreen, LOW);
       }
-      if (doorStatusStr == "zu")
+      if (doorStatusStr == "CL") // CL = closed
       {
         digitalWrite(ledRed, LOW);
         digitalWrite(ledGreen, HIGH);
@@ -99,7 +101,7 @@ void ConnectionTest()
     retries++;
   }
 
-  if (connection == false)
+  if (connectionSuccessful == false)
   {
     digitalWrite(ledYellow, HIGH);
   }
@@ -125,6 +127,7 @@ void setup()
 void loop()
 {
   message = "";
+
   // manual connection check
   if (digitalRead(button) == LOW)
   {
@@ -138,7 +141,7 @@ void loop()
     digitalWrite(ledYellow, LOW);
     delay(timeShort);
     message = HC12.readString();
-    if (message == "zu")
+    if (message == "CL") // CL = clossed
     {
       digitalWrite(ledGreen, HIGH);
       digitalWrite(ledRed, LOW);
@@ -147,7 +150,7 @@ void loop()
       delay(timeShort);
     }
 
-    if (message == "au")
+    if (message == "OP") // OP = open
     {
       digitalWrite(ledRed, HIGH);
       digitalWrite(ledGreen, LOW);
