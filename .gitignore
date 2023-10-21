@@ -9,10 +9,3 @@
 .history/
 # Built Visual Studio Code Extensions
 *.vsix
-
-### Platformio
-.pioenvs
-.piolibdeps
-.clang_complete
-.gcc-flags.json
-.pio
