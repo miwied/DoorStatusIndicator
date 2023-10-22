@@ -25,9 +25,13 @@ The transmitter code monitors the status of the garage door with the help of a s
 
 ## Youtube Video
 
-Here you can find the video about the development, the assembly and a demonstration of the project.
+Here you can find the video about the development, assembly and a demonstration of the project.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/qoAPX6oTzRc?si=M_xqb8Hg_sfzFuTj" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<div align="left">
+      <a href="https://youtu.be/qoAPX6oTzRc?si=jl3AqPBTV3EyERey">
+         <img src="https://img.youtube.com/vi/qoAPX6oTzRc/0.jpg" width="400px">
+      </a>
+</div>
 
 
 ## Images
